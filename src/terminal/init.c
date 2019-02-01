@@ -3,6 +3,7 @@
 //
 #include <unistd.h>
 #include <termcap.h>
+#include <sys/ioctl.h>
 #include "libft.h"
 #include "ft_select.h"
 
@@ -31,6 +32,20 @@ static int	disable_echo_ecanon(t_term *term)
 	return (0);
 }
 
+static int	init_struct(t_term *term)
+{
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &term->wsize) == -1)
+		return (1);
+	term->pos.x = 0;
+	term->pos.y = 0;
+	term->max.x = 0;
+	term->max.y = 0;
+	term->max_l = 0;
+	term->qty = 0;
+	term->choices = NULL;
+	return (0);
+}
+
 int			init_term(t_term *term)
 {
 	char	*terminal;
@@ -52,6 +67,8 @@ int			init_term(t_term *term)
 		ft_putendl_fd("ft_select: terminal not found in tgetent.", 2);
 		return (1);
 	}
+	if (init_struct(term))
+		return (1);
 	ret = disable_echo_ecanon(term);
 	return (ret);
 }

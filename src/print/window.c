@@ -1,12 +1,19 @@
-//
-// Created by Steve Denis on 2019-01-31.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/01 12:15:28 by stdenis           #+#    #+#             */
+/*   Updated: 2019/02/01 12:36:14 by stdenis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include <unistd.h>
-#include <sys/ioctl.h>
 #include "ft_select.h"
 #include "libft.h"
-#include <stdio.h>
 
 void		print_top(const char *content, t_term *term)
 {
@@ -17,7 +24,7 @@ void		print_top(const char *content, t_term *term)
 	ft_putstr(BGW);
 	len = ft_strlen(content);
 	len = (term->wsize.ws_col - len) / 2;
-	goto_cap("cmd", len, 0);
+	goto_cap("cm", len, 0);
 	ft_putstr(content);
 	ft_putstr(BGEOL);
 }
@@ -38,8 +45,6 @@ void		print_bottom(const char *content, t_term *term)
 
 int			print_top_bottom_bar(t_term *term)
 {
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &term->wsize) == -1)
-		return (-1);
 	goto_cap("cm", 0, 0);
 	print_top("ft_select by stdenis v0.1", term);
 	goto_cap("cm", 0, term->wsize.ws_row - 1);

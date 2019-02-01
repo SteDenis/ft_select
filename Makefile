@@ -12,8 +12,11 @@ SRC		=	\
 	terminal/quit.c		\
 	\
 	read/loop.c			\
+	read/choices.c		\
 	\
 	print/window.c		\
+	print/choices.c		\
+	print/cursor.c		\
 
 SRCDIR	:=	src
 INCDIR	:=	inc
