@@ -6,28 +6,37 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/01 16:03:09 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/04 17:17:07 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 #include "libft.h"
 
-void	move_right(t_term *term)
+void	move_right(t_term *term, int down)
 {
-	if (term->pos.x + term->max_l + 1 < term->wsize.ws_col - (term->wsize.ws_col - (term->max_l * term->max.x)) / 2)
+	if (term->pos.x + term->max_l + 1 < ((term->max_l + 1) * term->max.x) + CENTER)
 		term->pos.x += term->max_l + 1;
 	else
-		term->pos.x = (term->wsize.ws_col - (term->max_l * term->max.x)) / 2;
+	{
+		term->pos.x = CENTER;
+		if (down == 1)
+			move_down(term, 0);
+	}
 }
 
-void	move_left(t_term *term)
+void	move_left(t_term *term, int up)
 {
-	if (term->pos.x > (term->max_l + 1))
+	if (term->pos.x - (term->max_l + 1) >= CENTER)
 		term->pos.x -= (term->max_l + 1);
 	else
-		term->pos.x += (term->max_l + 1) * term->max.x;
+	{
+		term->pos.x = (CENTER) + ((term->max_l + 1) * (term->max.x - 1));
+		if (up == 1)
+			move_up(term);
 	}
+
+}
 
 void	move_up(t_term *term)
 {
@@ -35,36 +44,36 @@ void	move_up(t_term *term)
 		term->pos.y -= 1;
 	else
 	{
-		if (term->pos.x > (term->max_l + 1))
-		{
-			term->pos.y = term->max.y + 4;
-			move_left(term);
-		}
+		term->pos.y = term->max.y + 4;
+		if (term->pos.x - (term->max_l + 1) >= CENTER)
+			move_left(term, 0);
 	}
 }
 
-void	move_down(t_term *term)
+void	move_down(t_term *term, int right)
 {
 	if (term->pos.y + 1 <= term->max.y + 4)
 		term->pos.y += 1;
 	else
 	{
 		term->pos.y = 4;
-		move_right(term);
+		if (right == 1)
+			move_right(term, 0);
 	}
 }
 
 void	move_cursor(t_term *term, char buff[])
 {
-	print_cap("mr");
-	print_top_bottom_bar(term);
 	if (LEFT(2))
-		move_left(term);
+		move_left(term, 1);
 	else if (RIGHT(2))
-		move_right(term);
+		move_right(term, 1);
 	else if (UP(2))
 		move_up(term);
 	else if (DOWN(2))
-		move_down(term);
+		move_down(term, 1);
+	else if (IS_OPT_ARR)
+			switch_page(term, buff);
+	print_printable_choices(term);
 }
 

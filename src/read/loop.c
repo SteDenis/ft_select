@@ -8,28 +8,39 @@
 
 static int		interpreter(t_term *term, char buff[])
 {
-	if (ISARROW)
+	if (DEL)
+	{
+		if (del_elem(&term))
+			return (1);
+	}
+	else if (ISARROW)
 		move_cursor(term, buff);
+	else if (SUPPR)
+	{
+		if (del_elem(&term))
+			return (1);
+	}
+	else if (SPACE)
+		select_item(term);
 	else if (RETURN)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 void		loop_select(t_term *term)
 {
 	char buff[7];
 
-	write(2, "\x1b[107m\x1b[2J", 12);
-	goto_cap("cm", 0, 2);
-	ft_putstr("\x1b[K\x1b[30m\x1b[1;4m Make your choices :\x1b[K\x1b[30m\x1b[1;4m ");
-	print_top_bottom_bar(term);
 	calculate_start_print(term);
+	print_top_bottom_bar(term);
+	print_list_choices(term);
+	print_printable_choices(term);
 	while (42)
 	{
-		print_list_choices(term);
 		read(STDIN_FILENO, buff, 7);
-		if (!(interpreter(term, buff)))
+		if (interpreter(term, buff))
 			break ;
+		enable_signal(term);
 		ft_bzero(buff, 7);
 	}
 }

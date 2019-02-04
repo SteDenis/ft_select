@@ -9,14 +9,17 @@ SRC		=	\
 	\
 	terminal/worker.c	\
 	terminal/init.c		\
+	terminal/signal.c	\
 	terminal/quit.c		\
 	\
 	read/loop.c			\
 	read/choices.c		\
+	read/interpret.c	\
 	\
 	print/window.c		\
 	print/choices.c		\
 	print/cursor.c		\
+	print/delete.c		\
 
 SRCDIR	:=	src
 INCDIR	:=	inc
