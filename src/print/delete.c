@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 16:22:30 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/04 17:20:20 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/06 14:09:08 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include <unistd.h>
 
-void		free_elem(t_choice **node)
+void	free_elem(t_choice **node)
 {
 	t_choice	*n;
 
@@ -24,41 +24,47 @@ void		free_elem(t_choice **node)
 	*node = NULL;
 }
 
-int			del_elem(t_term **term)
+void	order(t_term **term, t_choice **prev, t_choice **next, t_choice **curr)
 {
-	t_choice	*choices;
+	(*term)->qty--;
+	*next = (*curr)->next;
+	free_elem(curr);
+	if (*prev != NULL)
+	{
+		(*prev)->next = *next;
+		if (*next != NULL)
+			(*next)->prev = (*prev);
+		(*term)->pos.x = (*prev)->pos.x;
+		(*term)->pos.y = (*prev)->pos.y;
+	}
+	else
+	{
+		(*term)->choices = *next;
+		if (*next != NULL)
+			(*term)->choices->prev = NULL;
+	}
+}
+
+int		del_elem(t_term **term)
+{
+	t_choice	*curr;
 	t_choice	*prev;
 	t_choice	*next;
 
-	choices = (*term)->choices;
+	curr = (*term)->choices;
 	prev = NULL;
-	while (choices)
+	next = NULL;
+	while (curr)
 	{
-		if (choices->pos.x == (*term)->pos.x && choices->pos.y  == (*term)->pos.y)
+		if (curr->pos.x == (*term)->pos.x && curr->pos.y == (*term)->pos.y)
 		{
-			(*term)->qty--;
-			next = choices->next;
-			free_elem(&choices);
-			if (prev != NULL)
-			{
-				prev->next = next;
-				if (next != NULL)
-					next->prev = prev;
-				(*term)->pos.x = prev->pos.x;
-				(*term)->pos.y = prev->pos.y;
-			}
-			else
-			{
-				(*term)->choices = next;
-				if (next != NULL)
-					(*term)->choices->prev = NULL;
-			}
+			order(term, &prev, &next, &curr);
 			break ;
 		}
 		else
 		{
-			prev = choices;
-			choices = choices->next;
+			prev = curr;
+			curr = curr->next;
 		}
 	}
 	print_cap("cl");

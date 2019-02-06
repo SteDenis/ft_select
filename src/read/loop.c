@@ -1,6 +1,14 @@
-//
-// Created by Steve Denis on 2019-01-31.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/06 15:34:06 by stdenis           #+#    #+#             */
+/*   Updated: 2019/02/06 15:34:06 by stdenis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
@@ -20,6 +28,8 @@ static int		interpreter(t_term *term, char buff[])
 		if (del_elem(&term))
 			return (1);
 	}
+	else if (CTRLR)
+		search_items(term);
 	else if (SPACE)
 		select_item(term);
 	else if (RETURN)
@@ -32,9 +42,7 @@ void		loop_select(t_term *term)
 	char buff[7];
 
 	calculate_start_print(term);
-	print_top_bottom_bar(term);
 	print_list_choices(term);
-	print_printable_choices(term);
 	while (42)
 	{
 		read(STDIN_FILENO, buff, 7);

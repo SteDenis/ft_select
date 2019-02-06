@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:31 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/04 15:23:19 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/06 12:47:47 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_choice	*arg_to_node(char **value, t_term *term)
 		node->name = *value;
 		node->length = ft_strlen(node->name);
 		if (term->max_l < (int)node->length)
-			term->max_l = node->length + 8;
+			term->max_l = node->length + 10;
 		if (stat(*value, &stats) != -1)
 			node->type = check_type(stats);
 		else
@@ -62,6 +62,7 @@ t_choice	*arg_to_node(char **value, t_term *term)
 		node->pos.x = 0;
 		node->pos.y = 0;
 		node->printed = false;
+		node->search = true;
 		node->selected = false;
 		node->next = NULL;
 		node->prev = NULL;
@@ -69,7 +70,14 @@ t_choice	*arg_to_node(char **value, t_term *term)
 	return (node);
 }
 
-int		fill_list_choices(char **ag, t_term *term)
+void 		reset_choice(t_choice *choice)
+{
+	choice->printed = false;
+	choice->pos.x = 0;
+	choice->pos.y = 0;
+}
+
+int			fill_list_choices(char **ag, t_term *term)
 {
 	int		i;
 	t_choice	*head;

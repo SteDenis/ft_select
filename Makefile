@@ -5,7 +5,7 @@
 NAME	:=	ft_select
 
 SRC		=	\
-	main.c	\
+	main.c				\
 	\
 	terminal/worker.c	\
 	terminal/init.c		\
@@ -20,6 +20,10 @@ SRC		=	\
 	print/choices.c		\
 	print/cursor.c		\
 	print/delete.c		\
+	print/calculate.c	\
+	print/box.c			\
+	\
+	search/search.c		\
 
 SRCDIR	:=	src
 INCDIR	:=	inc

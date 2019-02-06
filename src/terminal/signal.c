@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:39:33 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/04 17:39:34 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/06 10:10:08 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,14 @@ void	resize_handler(int signo)
 		if (ioctl(0, TIOCGWINSZ, &term->wsize) != -1)
 		{
 			print_cap("cl");
-		//	if (term->wsize.ws_col <= 65 || term->wsize.ws_row <= 65)
-		//		ft_putendl_fd("Please resize your terminal.", 2);
-		//	else
-		//	{
+			if (term->wsize.ws_col <= 60 || term->wsize.ws_row <= 25)
+				ft_putendl_fd("Please resize your terminal.", 2);
+			else
+			{
 				calculate_start_print(term);
-				print_top_bottom_bar(term);
 				set_no_printed(term);
 				print_list_choices(term);
-		//	}
+			}
 
 		}
 	}

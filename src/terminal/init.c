@@ -1,6 +1,15 @@
-//
-// Created by Steve Denis on 2019-01-31.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/06 14:22:17 by stdenis           #+#    #+#             */
+/*   Updated: 2019/02/06 14:22:17 by stdenis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <termcap.h>
 #include <sys/ioctl.h>
@@ -42,7 +51,15 @@ static int	init_struct(t_term *term)
 	term->max.y = 0;
 	term->max_l = 0;
 	term->qty = 0;
+	term->qty_s = 0;
 	term->choices = NULL;
+	term->search = NULL;
+	return (0);
+}
+
+int			execute_tputs(int c)
+{
+	write(STDIN_FILENO, &c, 1);
 	return (0);
 }
 

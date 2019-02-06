@@ -1,6 +1,14 @@
-//
-// Created by Steve Denis on 2019-01-31.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   worker.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/06 14:22:49 by stdenis           #+#    #+#             */
+/*   Updated: 2019/02/06 14:22:49 by stdenis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <termcap.h>
@@ -36,12 +44,6 @@ static const char	*safe_tgoto(const char *str, int x, int y)
 		return (tgoto(str, x, y));
 	}
 	return (NULL);
-}
-
-int			execute_tputs(int c)
-{
-	write(STDIN_FILENO, &c, 1);
-	return (0);
 }
 
 void		goto_cap(const char *id, int x, int y)

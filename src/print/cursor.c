@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/04 17:17:07 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/06 13:20:55 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 
 void	move_right(t_term *term, int down)
 {
-	if (term->pos.x + term->max_l + 1 < ((term->max_l + 1) * term->max.x) + CENTER)
+	int		newpos;
+	int		maxpos;
+
+	newpos = term->pos.x + term->max_l + 1;
+	maxpos = ((term->max_l + 1) * term->max.x) + CENTER;
+	if (newpos < maxpos)
 		term->pos.x += term->max_l + 1;
 	else
 	{

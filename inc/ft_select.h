@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/04 17:14:37 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/06 15:39:28 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@
 ** Define unicode for emoji.
 */
 # define FOLDER "\U0001F4C1"
-# define FILE "\U0001F4C4"
+# define EFILE "\U0001F4C4"
 # define EXE "\U0001F4BE"
 # define NOTF "\U0001F4CD"
+# define CURSOR "\U000027A1"
 
 /*
 ** Define colors.
@@ -59,6 +60,8 @@
 # define SPACE (buff[0] == 32 && buff[1] == 0)
 # define IS_OPT_ARR (buff[0] == 27 && buff[1] == 27)
 # define EOF (buff[0] == 4 && buff[1] == 0)
+# define CTRLR (buff[0] == 18 && buff[1] == 0)
+# define ISPRINT (buff[0] >= 32 && buff[0] <= 126)
 
 typedef struct termios		t_termc;
 typedef struct winsize		t_wsize;
@@ -77,6 +80,7 @@ typedef struct		s_choice
 	int				type;
 	bool			printed;
 	bool			selected;
+	bool			search;
 	struct s_choice	*next;
 	struct s_choice	*prev;
 }					t_choice;
@@ -93,49 +97,91 @@ typedef struct		s_term
 	int				max_p;
 	int				qty;
 	int				qty_s;
+	char			*search;
 	t_choice		*choices;
 }					t_term;
 
 
-//worker
+/*
+** terminal/worker.c
+*/
 void				print_cap(const char *id);
-int					execute_tputs(int c);
 void				goto_cap(const char *id, int x, int y);
 
-//init
+/*
+** terminal/init.c
+*/
 int					init_term(t_term *term);
+int					execute_tputs(int c);
 
-//quit
+/*
+** terminal/quit.c
+*/
 void				end_select(t_term *term);
 
-//loop
+/*
+** read/loop.c
+*/
 void				loop_select(t_term *term);
 
-//window
+/*
+** print/window.c
+*/
 int					print_top_bottom_bar(t_term *term);
 
-//choices
+/*
+** read/choices.c
+*/
 int					fill_list_choices(char **ag, t_term *term);
+void 				reset_choice(t_choice *choice);
 
-//print/choices
+/*
+** print/choices.c
+*/
 void				print_list_choices(t_term *term);
 void				calculate_start_print(t_term *term);
 void				details_print(t_term *term, t_xy start, t_choice *choice);
 void				print_printable_choices(t_term *term);
 
-//print/cursor
+/*
+** print/cursor.c
+*/
 void				move_cursor(t_term *term, char buff[]);
 void				move_down(t_term *term, int right);
 void				move_right(t_term *term, int down);
 void				move_up(t_term *term);
 
-//signal
+/*
+** terminal/signal.c
+*/
 void				enable_signal(t_term *term);
 
-//interpert
+/*
+** read/interpret.c
+*/
 void				select_item(t_term *term);
 void				switch_page(t_term *term, char buff[]);
 
-//del
+/*
+** print/delete.c
+*/
 int					del_elem(t_term **term);
+
+/*
+** print/calculate.c
+*/
+int					calculate_nbr_pages(t_term *term);
+
+/*
+** print/box.c
+*/
+void				box_left_or_right(int x, int y);
+void				box_top(int x, int y, int length);
+void				box_bottom(int x, int y, int length);
+void				drawing_box(t_term *term);
+
+/*
+** search/search.c
+*/
+void				search_items(t_term *term);
 #endif
