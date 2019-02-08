@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:34:06 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/06 15:34:06 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/08 10:41:14 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		loop_select(t_term *term)
 	print_list_choices(term);
 	while (42)
 	{
-		read(STDIN_FILENO, buff, 7);
+		read(0, buff, 7);
 		if (interpreter(term, buff))
 			break ;
 		enable_signal(term);

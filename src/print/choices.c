@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:14 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/06 13:12:41 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/08 10:45:27 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ void	print_type(int type)
 {
 	if (type == 1)
 	{
-		write(1, TXTR, 5);
-		ft_putstr(EXE"  ");
+		ft_putstr_fd(TXTR, 2);
+		ft_putstr_fd(EXE"  ", 2);
 	}
 	else if (type == 2)
 	{
-		write(1, TXTB, 5);
-		ft_putstr(FOLDER"  ");
+		ft_putstr_fd(TXTB, 2);
+		ft_putstr_fd(FOLDER"  ", 2);
 	}
 	else if (type >= 3)
 	{
-		write(1, TXTM, 5);
-		ft_putstr(EFILE"  ");
+		ft_putstr_fd(TXTM, 2);
+		ft_putstr_fd(EFILE"  ", 2);
 	}
 	else
-		ft_putstr(NOTF"  ");
+		ft_putstr_fd(NOTF"  ", 2);
 }
 
 void	details_print(t_term *term, t_xy start, t_choice *choice)
@@ -57,11 +57,11 @@ void	details_print(t_term *term, t_xy start, t_choice *choice)
 		print_cap("mr");
 	print_type(choice->type);
 	if (on_cursor)
-		ft_putstr(CURSOR" ");
+		ft_putstr_fd(CURSOR" ", 2);
 	else
-		ft_putstr("  ");
+		ft_putstr_fd("  ", 2);
 	ft_putendl_fd(choice->name, 2);
-	write(1, TXTN, 5);
+	ft_putstr_fd(TXTN, 2);
 	if (choice->selected)
 		print_cap("me");
 	if (on_cursor)

@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 11:07:46 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/06 11:56:09 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/08 10:44:43 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	box_bottom(int x, int y, int length)
 
 	i = 0;
 	goto_cap("cm", x, y);
-	ft_putstr(BOXCGB);
+	ft_putstr_fd(BOXCGB, 2);
 	while (i++ < length)
-		ft_putstr(BOXBT);
-	ft_putstr(BOXCDB);
+		ft_putstr_fd(BOXBT, 2);
+	ft_putstr_fd(BOXCDB, 2);
 }
 
 void	box_top(int x, int y, int length)
@@ -45,14 +45,14 @@ void	box_top(int x, int y, int length)
 
 	i = 0;
 	goto_cap("cm", x, y);
-	ft_putstr(BOXCG);
+	ft_putstr_fd(BOXCG, 2);
 	while (i++ < length)
-		ft_putstr(BOXBT);
-	ft_putstr(BOXCD);
+		ft_putstr_fd(BOXBT, 2);
+	ft_putstr_fd(BOXCD, 2);
 }
 
 void	box_left_or_right(int x, int y)
 {
 	goto_cap("cm", x, y);
-	ft_putstr(BOXLR);
+	ft_putstr_fd(BOXLR, 2);
 }

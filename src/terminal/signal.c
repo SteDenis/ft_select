@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:39:33 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/06 10:10:08 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/08 12:12:45 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,28 @@ void	resize_handler(int signo)
 		}
 	}
 }
+#include <unistd.h>
+void		stop_handler(int signo)
+{
+	t_term *term;
+
+	term = g_term;
+	if (signo == SIGSTOP || signo == SIGTSTP)
+	{
+		signal(SIGSTOP, SIG_DFL);
+		print_cap("te");
+		print_cap("ve");
+	}
+	else
+	{
+		print_cap("vi");
+		print_cap("ti");
+		ft_putendl_fd("fsdfDSFDSFDSFDSFDSFDSFDSFDSFFDS",2);
+		tcsetattr(0, TCSAFLUSH, &term->n_term);
+		loop_select(term);
+		ioctl(0, TIOCSTI, "\x1A");
+	}
+}
 
 void		enable_signal(t_term *term)
 {
@@ -60,5 +82,7 @@ void		enable_signal(t_term *term)
 	signal(SIGKILL, SIG_DFL);
 	signal(SIGTERM, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_DFL);
+	signal(SIGSTOP, stop_handler);
+	signal(SIGTSTP, stop_handler);
+	signal(SIGCONT, stop_handler);
 }

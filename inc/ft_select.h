@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/06 15:39:28 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/08 10:19:16 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct		s_term
 	int				qty;
 	int				qty_s;
 	char			*search;
+	int				fd;
 	t_choice		*choices;
 }					t_term;
 
