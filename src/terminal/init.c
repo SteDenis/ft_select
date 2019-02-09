@@ -19,22 +19,22 @@
 
 static int	disable_echo_ecanon(t_term *term)
 {
-	if ((tcgetattr(0, &term->org_term)) == -1)
+	if ((tcgetattr(term->fd, &term->org_term)) == -1)
 	{
-		ft_putendl_fd("ft_select: can't get terminal attributes.", 2);
+		ft_putendl_fd("ft_select: can't get terminal attributes.", 0);
 		return (1);
 	}
-	if ((tcgetattr(0, &term->n_term)) == -1)
+	if ((tcgetattr(term->fd, &term->n_term)) == -1)
 	{
-		ft_putendl_fd("ft_select: can't get terminal attributes.", 2);
+		ft_putendl_fd("ft_select: can't get terminal attributes.", 0);
 		return (1);
 	}
 	term->n_term.c_lflag &= ~((unsigned long)ECHO | (unsigned long)ICANON);
 	term->n_term.c_cc[VMIN] = 1;
 	term->n_term.c_cc[VTIME] = 0;
-	if ((tcsetattr(0, TCSAFLUSH, &term->n_term)) == -1)
+	if ((tcsetattr(term->fd, TCSAFLUSH, &term->n_term)) == -1)
 	{
-		ft_putendl_fd("ft_select: can't set terminal attributes.", 2);
+		ft_putendl_fd("ft_select: can't set terminal attributes.", 0);
 		return (1);
 	}
 	print_cap("ti");
@@ -55,6 +55,7 @@ static int	init_struct(t_term *term)
 	term->qty_s = 0;
 	term->choices = NULL;
 	term->search = NULL;
+	enable_signal(term);
 	return (0);
 }
 
@@ -72,7 +73,7 @@ static int	init_fd_stdin(t_term *term)
 
 int			execute_tputs(int c)
 {
-	write(1, &c, 1);
+	write(0, &c, 1);
 	return (0);
 }
 
@@ -84,17 +85,17 @@ int			init_term(t_term *term)
 
 	if ((terminal = getenv("TERM")) == NULL)
 	{
-		ft_putstr_fd("ft_select: can't determine the terminal. ", 2);
+		ft_putstr_fd("ft_select: can't determine the terminal. ", 0);
 		return (1);
 	}
 	if (ft_strequ(terminal, "dumb"))
 	{
-		ft_putstr_fd("ft_select: can't work on \"dumb\" terminal. ", 2);
+		ft_putstr_fd("ft_select: can't work on \"dumb\" terminal. ", 0);
 		return (1);
 	}
 	if (tgetent(buff, terminal) != 1)
 	{
-		ft_putendl_fd("ft_select: terminal not found in tgetent.", 2);
+		ft_putendl_fd("ft_select: terminal not found in tgetent.", 0);
 		return (1);
 	}
 	if (init_struct(term))

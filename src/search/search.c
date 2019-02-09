@@ -57,9 +57,9 @@ void	printable_char(t_term *term, char buff[])
 	insert_char(term, buff[0]);
 	print_search(term, ft_strlen(term->search));
 	goto_cap("cm", 0, term->wsize.ws_row - 3);
-	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 2);
-	ft_putstr_fd(term->search, 2);
-	ft_putstr_fd("\x1B[0m", 2);
+	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 0);
+	ft_putstr_fd(term->search, 0);
+	ft_putstr_fd("\x1B[0m", 0);
 }
 
 void	suppr_char(t_term *term)
@@ -78,9 +78,9 @@ void	suppr_char(t_term *term)
 	print_cap("cr");
 	print_search(term, ft_strlen(term->search));
 	goto_cap("cm", 0, term->wsize.ws_row - 3);
-	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 2);
-	ft_putstr_fd(term->search, 2);
-	ft_putstr_fd("\x1B[0m", 2);
+	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 0);
+	ft_putstr_fd(term->search, 0);
+	ft_putstr_fd("\x1B[0m", 0);
 }
 
 
@@ -89,13 +89,13 @@ void		search_items(t_term *term)
 	char		buff[2];
 
 	goto_cap("cm", 0, term->wsize.ws_row - 3);
-	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 2);
-	ft_putstr_fd("\x1B[0m", 2);
+	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 0);
+	ft_putstr_fd("\x1B[0m", 0);
 	print_cap("ve");
 	if (term->search == NULL)
 		term->search = ft_strnew(0);
 	else
-		ft_putstr_fd(term->search, 2);
+		ft_putstr_fd(term->search, 0);
 	while (read(0, buff, 2) > 0)
 	{
 		if (ISPRINT)

@@ -45,10 +45,9 @@ void		loop_select(t_term *term)
 	print_list_choices(term);
 	while (42)
 	{
-		read(0, buff, 7);
+		read(term->fd, buff, 7);
 		if (interpreter(term, buff))
 			break ;
-		enable_signal(term);
 		ft_bzero(buff, 7);
 	}
 }

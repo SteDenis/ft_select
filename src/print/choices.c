@@ -28,21 +28,21 @@ void	print_type(int type)
 {
 	if (type == 1)
 	{
-		ft_putstr_fd(TXTR, 2);
-		ft_putstr_fd(EXE"  ", 2);
+		ft_putstr_fd(TXTR, 0);
+		ft_putstr_fd(EXE"  ", 0);
 	}
 	else if (type == 2)
 	{
-		ft_putstr_fd(TXTB, 2);
-		ft_putstr_fd(FOLDER"  ", 2);
+		ft_putstr_fd(TXTB, 0);
+		ft_putstr_fd(FOLDER"  ", 0);
 	}
 	else if (type >= 3)
 	{
-		ft_putstr_fd(TXTM, 2);
-		ft_putstr_fd(EFILE"  ", 2);
+		ft_putstr_fd(TXTM, 0);
+		ft_putstr_fd(EFILE"  ", 0);
 	}
 	else
-		ft_putstr_fd(NOTF"  ", 2);
+		ft_putstr_fd(NOTF"  ", 0);
 }
 
 void	details_print(t_term *term, t_xy start, t_choice *choice)
@@ -57,11 +57,11 @@ void	details_print(t_term *term, t_xy start, t_choice *choice)
 		print_cap("mr");
 	print_type(choice->type);
 	if (on_cursor)
-		ft_putstr_fd(CURSOR" ", 2);
+		ft_putstr_fd(CURSOR" ", 0);
 	else
-		ft_putstr_fd("  ", 2);
-	ft_putendl_fd(choice->name, 2);
-	ft_putstr_fd(TXTN, 2);
+		ft_putstr_fd("  ", 0);
+	ft_putendl_fd(choice->name, 0);
+	ft_putstr_fd(TXTN, 0);
 	if (choice->selected)
 		print_cap("me");
 	if (on_cursor)

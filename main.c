@@ -45,11 +45,7 @@ int		main()
 	tputs(str4, 0, ft_execute_term);
 	char *underline_cmd = tgetstr("us", NULL);
 	tputs(underline_cmd, 1, ft_execute_term);
-	write(1, "blahblahblah", 12);
-	write(1, "\n", 1);
-	write(1, "blahblahblah", 12);
-	write(1, "\n", 1);
-	write(1, "blahblahblah", 12);
+	write(1, "\033[39;49m\033[39;49m\033(B\033[m\033[H\033[2J\033(B\033[0;7m GNU nano 2.0.6 File: test \033[23;30H[ New File ]\r\033[24d^G\033(B\033[m Get Help\033(B\033[0;7m^O\033(B\033[m WriteOut\033(B\033[0;7m^R\033(B\033[m Read Fil\033(B\033[0;7m^Y\033(B\033[m Prev Pag\033(B\033[0;7m^K\033(B\033[m Cut Text\033", 200);
 	tputs(tgoto(str2, 0, 0), 1, ft_execute_term);
 	char c[4];
 	while (read(STDIN_FILENO, &c, 4) > 0){

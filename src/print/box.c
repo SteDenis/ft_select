@@ -33,10 +33,10 @@ void	box_bottom(int x, int y, int length)
 
 	i = 0;
 	goto_cap("cm", x, y);
-	ft_putstr_fd(BOXCGB, 2);
+	ft_putstr_fd(BOXCGB, 0);
 	while (i++ < length)
-		ft_putstr_fd(BOXBT, 2);
-	ft_putstr_fd(BOXCDB, 2);
+		ft_putstr_fd(BOXBT, 0);
+	ft_putstr_fd(BOXCDB, 0);
 }
 
 void	box_top(int x, int y, int length)
@@ -45,14 +45,14 @@ void	box_top(int x, int y, int length)
 
 	i = 0;
 	goto_cap("cm", x, y);
-	ft_putstr_fd(BOXCG, 2);
+	ft_putstr_fd(BOXCG, 0);
 	while (i++ < length)
-		ft_putstr_fd(BOXBT, 2);
-	ft_putstr_fd(BOXCD, 2);
+		ft_putstr_fd(BOXBT, 0);
+	ft_putstr_fd(BOXCD, 0);
 }
 
 void	box_left_or_right(int x, int y)
 {
 	goto_cap("cm", x, y);
-	ft_putstr_fd(BOXLR, 2);
+	ft_putstr_fd(BOXLR, 0);
 }
