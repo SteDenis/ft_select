@@ -26,7 +26,7 @@ void	move_right(t_term *term, int down)
 	{
 		term->pos.x = CENTER;
 		if (down == 1)
-			move_down(term, 0);
+			move_down(term, term->fd);
 	}
 }
 
@@ -51,7 +51,7 @@ void	move_up(t_term *term)
 	{
 		term->pos.y = term->max.y + 4;
 		if (term->pos.x - (term->max_l + 1) >= CENTER)
-			move_left(term, 0);
+			move_left(term, term->fd);
 	}
 }
 
@@ -63,7 +63,7 @@ void	move_down(t_term *term, int right)
 	{
 		term->pos.y = 4;
 		if (right == 1)
-			move_right(term, 0);
+			move_right(term, term->fd);
 	}
 }
 

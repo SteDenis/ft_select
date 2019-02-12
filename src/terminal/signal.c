@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:39:33 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/08 12:12:45 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/12 11:16:50 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	resize_handler(int signo)
 	term = g_term;
 	if (signo == SIGWINCH)
 	{
-		if (ioctl(0, TIOCGWINSZ, &term->wsize) != -1)
+		if (ioctl(term->fd, TIOCGWINSZ, &term->wsize) != -1)
 		{
 			print_cap("cl");
 			if (term->wsize.ws_col <= 60 || term->wsize.ws_row <= 25)
-				ft_putendl_fd("Please resize your terminal.", 0);
+				ft_putendl_fd("Please resize your terminal.", term->fd);
 			else
 			{
 				calculate_start_print(term);
@@ -51,19 +51,20 @@ void	resize_handler(int signo)
 		}
 	}
 }
-#include <unistd.h>
+
 void		stop_handler(int signo)
 {
 	t_term *term;
 
 	term = g_term;
-
-	(void)signo;
-	tcsetattr(term->fd, TCSAFLUSH, &term->org_term);
-	signal(SIGTSTP, SIG_DFL);
-	print_cap("te");
-	print_cap("ve");
-	ioctl(term->fd, TIOCSTI, "\x1A");
+	if (signo == SIGTSTP)
+	{
+		tcsetattr(term->fd, TCSAFLUSH, &term->org_term);
+		signal(SIGTSTP, SIG_DFL);
+		print_cap("te");
+		print_cap("ve");
+		ioctl(term->fd, TIOCSTI, "\x1A");
+	}
 }
 
 void		cont_handler(int signo)
@@ -71,12 +72,14 @@ void		cont_handler(int signo)
 	t_term *term;
 
 	term = g_term;
-	(void)signo;
-	tcsetattr(term->fd, TCSAFLUSH, &term->n_term);
-	print_cap("vi");
-	print_cap("ti");
-	signal(SIGTSTP, stop_handler);
-	print_list_choices(term);
+	if (signo == SIGCONT)
+	{
+		tcsetattr(term->fd, TCSAFLUSH, &term->n_term);
+		print_cap("vi");
+		print_cap("ti");
+		signal(SIGTSTP, stop_handler);
+		print_list_choices(term);
+	}
 }
 
 void		enable_signal(t_term *term)

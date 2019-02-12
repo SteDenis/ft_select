@@ -78,7 +78,7 @@ void	prev_page(t_term *term)
 		current = current->next;
 	}
 	term->page--;
-	change_printed(term, save, 0);
+	change_printed(term, save, term->fd);
 }
 
 void	next_page(t_term *term)

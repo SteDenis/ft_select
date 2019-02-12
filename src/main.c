@@ -33,16 +33,18 @@ void		return_select(t_term *term)
 	}
 }
 
-int		main(int ac, char **ag)
+int			main(int ac, char **ag)
 {
 	t_term		term;
+	int			ret;
 
 	(void)ac;
 	if (init_term(&term))
 		return (1);
 	fill_list_choices(&ag[1], &term);
-	loop_select(&term);
+	ret = loop_select(&term);
 	end_select(&term);
-	return_select(&term);
+	if (ret == 1)
+		return_select(&term);
 	return (0);
 }

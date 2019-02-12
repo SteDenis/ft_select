@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:14 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/08 10:45:27 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/12 11:16:50 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ void	calculate_start_print(t_term *term)
 	term->pos.y = 4;
 }
 
-void	print_type(int type)
+void	print_type(int type, t_term *term)
 {
 	if (type == 1)
 	{
-		ft_putstr_fd(TXTR, 0);
-		ft_putstr_fd(EXE"  ", 0);
+		ft_putstr_fd(TXTR, term->fd);
+		ft_putstr_fd(EXE"  ", term->fd);
 	}
 	else if (type == 2)
 	{
-		ft_putstr_fd(TXTB, 0);
-		ft_putstr_fd(FOLDER"  ", 0);
+		ft_putstr_fd(TXTB, term->fd);
+		ft_putstr_fd(FOLDER"  ", term->fd);
 	}
 	else if (type >= 3)
 	{
-		ft_putstr_fd(TXTM, 0);
-		ft_putstr_fd(EFILE"  ", 0);
+		ft_putstr_fd(TXTM, term->fd);
+		ft_putstr_fd(EFILE"  ", term->fd);
 	}
 	else
-		ft_putstr_fd(NOTF"  ", 0);
+		ft_putstr_fd(NOTF"  ", term->fd);
 }
 
 void	details_print(t_term *term, t_xy start, t_choice *choice)
@@ -55,13 +55,13 @@ void	details_print(t_term *term, t_xy start, t_choice *choice)
 		print_cap("us");
 	if (choice->selected)
 		print_cap("mr");
-	print_type(choice->type);
+	print_type(choice->type, term);
 	if (on_cursor)
-		ft_putstr_fd(CURSOR" ", 0);
+		ft_putstr_fd(CURSOR" ", term->fd);
 	else
-		ft_putstr_fd("  ", 0);
-	ft_putendl_fd(choice->name, 0);
-	ft_putstr_fd(TXTN, 0);
+		ft_putstr_fd("  ", term->fd);
+	ft_putendl_fd(choice->name, term->fd);
+	ft_putstr_fd(TXTN, term->fd);
 	if (choice->selected)
 		print_cap("me");
 	if (on_cursor)

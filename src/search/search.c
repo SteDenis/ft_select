@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:34:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/08 10:43:01 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/12 09:39:51 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	printable_char(t_term *term, char buff[])
 	insert_char(term, buff[0]);
 	print_search(term, ft_strlen(term->search));
 	goto_cap("cm", 0, term->wsize.ws_row - 3);
-	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 0);
-	ft_putstr_fd(term->search, 0);
-	ft_putstr_fd("\x1B[0m", 0);
+	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", term->fd);
+	ft_putstr_fd(term->search, term->fd);
+	ft_putstr_fd("\x1B[0m", term->fd);
 }
 
 void	suppr_char(t_term *term)
@@ -78,9 +78,9 @@ void	suppr_char(t_term *term)
 	print_cap("cr");
 	print_search(term, ft_strlen(term->search));
 	goto_cap("cm", 0, term->wsize.ws_row - 3);
-	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 0);
-	ft_putstr_fd(term->search, 0);
-	ft_putstr_fd("\x1B[0m", 0);
+	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", term->fd);
+	ft_putstr_fd(term->search, term->fd);
+	ft_putstr_fd("\x1B[0m", term->fd);
 }
 
 
@@ -89,13 +89,13 @@ void		search_items(t_term *term)
 	char		buff[2];
 
 	goto_cap("cm", 0, term->wsize.ws_row - 3);
-	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", 0);
-	ft_putstr_fd("\x1B[0m", 0);
+	ft_putstr_fd("\x1b[48;5;253;1;38;5;17mSearch:\x1B[K", term->fd);
+	ft_putstr_fd("\x1B[0m", term->fd);
 	print_cap("ve");
 	if (term->search == NULL)
 		term->search = ft_strnew(0);
 	else
-		ft_putstr_fd(term->search, 0);
+		ft_putstr_fd(term->search, term->fd);
 	while (read(0, buff, 2) > 0)
 	{
 		if (ISPRINT)

@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:34:06 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/08 10:41:14 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/12 11:15:41 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,39 @@
 
 static int		interpreter(t_term *term, char buff[])
 {
-	if (DEL)
-	{
-		if (del_elem(&term))
-			return (1);
-	}
+	if (ESCAPE)
+		return (2);
+	if (DEL && del_elem(&term))
+			return (2);
 	else if (ISARROW)
 		move_cursor(term, buff);
-	else if (SUPPR)
-	{
-		if (del_elem(&term))
-			return (1);
-	}
+	else if (SUPPR && del_elem(&term))
+			return (2);
 	else if (CTRLR)
 		search_items(term);
 	else if (SPACE)
 		select_item(term);
 	else if (RETURN)
 		return (1);
+	else if (OPEN)
+		open_directory(term);
 	return (0);
 }
 
-void		loop_select(t_term *term)
+int		loop_select(t_term *term)
 {
-	char buff[7];
+	char 	buff[7];
+	int		ret;
 
 	calculate_start_print(term);
 	print_list_choices(term);
-	while (42)
+	ret = 0;
+	ft_bzero(buff, 7);
+	while (read(term->fd, buff, 7) > 0)
 	{
-		read(term->fd, buff, 7);
-		if (interpreter(term, buff))
+		if ((ret = interpreter(term, buff)) > 0)
 			break ;
 		ft_bzero(buff, 7);
 	}
+	return (ret);
 }

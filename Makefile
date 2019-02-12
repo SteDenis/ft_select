@@ -12,9 +12,11 @@ SRC		=	\
 	terminal/signal.c	\
 	terminal/quit.c		\
 	\
-	read/loop.c			\
-	read/choices.c		\
-	read/interpret.c	\
+	read/loop.c				\
+	read/choices.c			\
+	read/interpret.c		\
+	read/open_directory.c	\
+	read/utility_dir.c		\
 	\
 	print/window.c		\
 	print/choices.c		\

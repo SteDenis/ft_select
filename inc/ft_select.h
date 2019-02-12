@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/08 10:19:16 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/12 14:30:41 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@
 # define EOF (buff[0] == 4 && buff[1] == 0)
 # define CTRLR (buff[0] == 18 && buff[1] == 0)
 # define ISPRINT (buff[0] >= 32 && buff[0] <= 126)
+# define ESCAPE (buff[0] == 27 && buff[1] == 0)
+# define OPEN (buff[0] == 111 && buff[1] == 0)
 
 typedef struct termios		t_termc;
 typedef struct winsize		t_wsize;
+typedef struct dirent		t_dir;
 
 typedef struct		s_xy
 {
@@ -81,6 +84,7 @@ typedef struct		s_choice
 	bool			printed;
 	bool			selected;
 	bool			search;
+	bool			freeable;
 	struct s_choice	*next;
 	struct s_choice	*prev;
 }					t_choice;
@@ -98,6 +102,7 @@ typedef struct		s_term
 	int				qty;
 	int				qty_s;
 	char			*search;
+	char 			path[1024];
 	int				fd;
 	t_choice		*choices;
 }					t_term;
@@ -123,7 +128,7 @@ void				end_select(t_term *term);
 /*
 ** read/loop.c
 */
-void				loop_select(t_term *term);
+int					loop_select(t_term *term);
 
 /*
 ** print/window.c
@@ -135,6 +140,8 @@ int					print_top_bottom_bar(t_term *term);
 */
 int					fill_list_choices(char **ag, t_term *term);
 void 				reset_choice(t_choice *choice);
+t_choice			*arg_to_node(char **value, t_term *term);
+void				add_choice(t_choice **alst, t_choice *node);
 
 /*
 ** print/choices.c
@@ -176,13 +183,25 @@ int					calculate_nbr_pages(t_term *term);
 /*
 ** print/box.c
 */
-void				box_left_or_right(int x, int y);
-void				box_top(int x, int y, int length);
-void				box_bottom(int x, int y, int length);
+void				box_left_or_right(int x, int y, int fd);
+void				box_top(int x, int y, int length, int fd);
+void				box_bottom(int x, int y, int length, int fd);
 void				drawing_box(t_term *term);
 
 /*
 ** search/search.c
 */
 void				search_items(t_term *term);
+
+/*
+** read/open_directory.c
+*/
+void				open_directory(t_term *term);
+
+/*
+** read/utility_dir.c
+*/
+int					denied_access(t_term *term);
+void				change_list(t_choice *head, t_term *term);
+void				add_node(t_choice **head, t_dir *dir, t_term *term);
 #endif
