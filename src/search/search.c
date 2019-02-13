@@ -35,7 +35,8 @@ static void	print_search(t_term *term, size_t len)
 	print_cap("cl");
 	print_cap("vi");
 	calculate_start_print(term);
-	print_list_choices(term);
+	if (check_window_size(term))
+		print_list_choices(term);
 }
 
 static void	insert_char(t_term *term, char c)

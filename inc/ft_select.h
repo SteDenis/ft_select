@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:57:43 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 20:22:54 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ int					del_elem(t_term **term);
 ** print/calculate.c
 */
 int					calculate_nbr_pages(t_term *term);
+bool				check_window_size(t_term *term);
+bool				is_position_exist(t_term *term, int x, int y);
 
 /*
 ** print/box.c

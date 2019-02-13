@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:38:11 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:52:23 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 20:22:25 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ static void	change_printed(t_term *term, t_choice *current, int order)
 		else
 			current = current->prev;
 	}
-	print_cap("cl");
-	print_printable_choices(term);
-	print_top_bottom_bar(term);
+	if (check_window_size(term))
+	{
+		print_printable_choices(term);
+		print_top_bottom_bar(term);
+	}
 }
 
 static void	prev_page(t_term *term)
@@ -102,8 +104,11 @@ void		select_item(t_term *term)
 		choices = choices->next;
 	}
 	print_cap("cl");
-	print_printable_choices(term);
-	print_top_bottom_bar(term);
+	if (check_window_size(term))
+	{
+		print_printable_choices(term);
+		print_top_bottom_bar(term);
+	}
 }
 
 void		switch_page(t_term *term, char buff[])

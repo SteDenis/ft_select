@@ -51,7 +51,8 @@ void		recover_first_list(t_term *term)
 	recover_qty_maxl(term);
 	print_cap("cl");
 	calculate_start_print(term);
-	print_list_choices(term);
+	if (check_window_size(term))
+		print_list_choices(term);
 }
 
 int			denied_access(t_term *term)
@@ -89,7 +90,8 @@ void		change_list(t_choice *head, t_term *term)
 	term->choices = head;
 	print_cap("cl");
 	calculate_start_print(term);
-	print_list_choices(term);
+	if (check_window_size(term))
+		print_list_choices(term);
 }
 
 void		add_node(t_choice **head, t_dir *dir, t_term *term)

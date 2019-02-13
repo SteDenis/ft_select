@@ -64,7 +64,8 @@ static void	cont_handler(int signo)
 		print_cap("vi");
 		print_cap("ti");
 		signal(SIGTSTP, stop_handler);
-		print_list_choices(term);
+		if (check_window_size(term))
+			print_list_choices(term);
 	}
 }
 

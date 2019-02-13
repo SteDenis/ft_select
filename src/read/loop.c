@@ -40,8 +40,11 @@ int				loop_select(t_term *term)
 	char	buff[7];
 	int		ret;
 
-	calculate_start_print(term);
-	print_list_choices(term);
+	if (check_window_size(term))
+	{
+		calculate_start_print(term);
+		print_list_choices(term);
+	}
 	ret = 0;
 	ft_bzero(buff, 7);
 	while (read(term->fd, buff, 7) > 0)

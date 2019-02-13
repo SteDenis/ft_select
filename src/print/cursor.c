@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 15:37:27 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 20:33:07 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	move_left(t_term *term, int up)
 {
-	if (term->pos.x - (term->max_l + 1) >= CENTER)
+	if (is_position_exist(term, term->pos.x - (term->max_l + 1), term->pos.y))
 		term->pos.x -= (term->max_l + 1);
 	else
 	{
@@ -27,7 +27,7 @@ static void	move_left(t_term *term, int up)
 
 static void	move_down(t_term *term, int right)
 {
-	if (term->pos.y + 1 <= term->max.y + term->start_y)
+	if (is_position_exist(term, term->pos.x, term->pos.y + 1))
 		term->pos.y += 1;
 	else
 	{
@@ -39,11 +39,11 @@ static void	move_down(t_term *term, int right)
 
 void		move_up(t_term *term)
 {
-	if (term->pos.y - 1 >= term->start_y)
+	if (is_position_exist(term, term->pos.x, term->pos.y - 1))
 		term->pos.y -= 1;
 	else
 	{
-		term->pos.y = term->max.y + term->start_y;
+		term->pos.y = term->start_y;
 		if (term->pos.x - (term->max_l + 1) >= CENTER)
 			move_left(term, term->fd);
 	}
@@ -52,11 +52,9 @@ void		move_up(t_term *term)
 void		move_right(t_term *term, int down)
 {
 	int		newpos;
-	int		maxpos;
 
 	newpos = term->pos.x + term->max_l + 1;
-	maxpos = ((term->max_l + 1) * term->max.x) + CENTER;
-	if (newpos < maxpos)
+	if (is_position_exist(term, newpos, term->pos.y))
 		term->pos.x += term->max_l + 1;
 	else
 	{
@@ -78,6 +76,9 @@ void		move_cursor(t_term *term, char buff[])
 		move_down(term, 1);
 	else if (IS_OPT_ARR)
 		switch_page(term, buff);
-	print_printable_choices(term);
-	print_top_bottom_bar(term);
+	if (check_window_size(term))
+	{
+		print_printable_choices(term);
+		print_top_bottom_bar(term);
+	}
 }
