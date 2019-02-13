@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:34:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:32:23 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:34:06 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "ft_select.h"
 
-void	print_search(t_term *term, size_t len)
+static void	print_search(t_term *term, size_t len)
 {
 	t_choice	*curr;
 
@@ -38,7 +38,7 @@ void	print_search(t_term *term, size_t len)
 	print_list_choices(term);
 }
 
-void	insert_char(t_term *term, char c)
+static void	insert_char(t_term *term, char c)
 {
 	char	*tmp;
 	char	buff[2];
@@ -52,7 +52,7 @@ void	insert_char(t_term *term, char c)
 		term->search = tmp;
 }
 
-void	printable_char(t_term *term, char buff[])
+static void	printable_char(t_term *term, char buff[])
 {
 	if (buff == NULL)
 		return ;
@@ -64,7 +64,7 @@ void	printable_char(t_term *term, char buff[])
 	ft_putstr_fd("\x1B[0m", term->fd);
 }
 
-void	suppr_char(t_term *term)
+static void	suppr_char(t_term *term)
 {
 	char	*tmp;
 	size_t	len;
@@ -85,7 +85,7 @@ void	suppr_char(t_term *term)
 	ft_putstr_fd("\x1B[0m", term->fd);
 }
 
-void	search_items(t_term *term)
+void		search_items(t_term *term)
 {
 	char		buff[2];
 

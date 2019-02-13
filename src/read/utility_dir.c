@@ -24,7 +24,7 @@ static void	recover_qty_maxl(t_term *term)
 	while (curr)
 	{
 		if (term->max_l < (int)curr->length + 6)
-			term->max_l = curr->length + 10;
+			term->max_l = (int)curr->length + 10;
 		term->qty++;
 		curr->search = true;
 		curr->selected = false;

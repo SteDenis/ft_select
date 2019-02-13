@@ -13,7 +13,7 @@
 #include "ft_select.h"
 #include "libft.h"
 
-void		return_select(t_term *term)
+static void	return_select(t_term *term)
 {
 	t_choice	*choices;
 	bool		first;

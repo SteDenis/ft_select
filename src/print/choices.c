@@ -15,7 +15,7 @@
 #include "libft.h"
 #include "ft_select.h"
 
-void	calculate_start_print(t_term *term)
+void		calculate_start_print(t_term *term)
 {
 	term->max.x = (term->wsize.ws_col - (CENTER * 2)) / term->max_l;
 	term->max.y = 0;
@@ -23,7 +23,7 @@ void	calculate_start_print(t_term *term)
 	term->pos.y = term->start_y;
 }
 
-void	print_type(int type, t_term *term)
+static void	print_type(int type, t_term *term)
 {
 	if (type == 1)
 	{
@@ -44,7 +44,7 @@ void	print_type(int type, t_term *term)
 		ft_putstr_fd(NOTF"  ", term->fd);
 }
 
-void	details_print(t_term *term, t_xy start, t_choice *choice)
+void		details_print(t_term *term, t_xy start, t_choice *choice)
 {
 	bool	on_cursor;
 
@@ -69,7 +69,7 @@ void	details_print(t_term *term, t_xy start, t_choice *choice)
 	choice->pos.y = start.y;
 }
 
-void	print_printable_choices(t_term *term)
+void		print_printable_choices(t_term *term)
 {
 	t_choice	*current;
 	t_xy		start;
@@ -86,7 +86,7 @@ void	print_printable_choices(t_term *term)
 		{
 			details_print(term, start, current);
 			start.x += term->max_l + 1;
-			if ((i + 1) % term->max.x == 0)
+			if (((int)i + 1) % term->max.x == 0)
 			{
 				start.y++;
 				term->max.y++;
@@ -98,7 +98,7 @@ void	print_printable_choices(t_term *term)
 	}
 }
 
-void	print_list_choices(t_term *term)
+void		print_list_choices(t_term *term)
 {
 	t_choice	*current;
 	t_xy		start;
@@ -117,7 +117,7 @@ void	print_list_choices(t_term *term)
 				current->printed = false;
 			else
 				current->printed = true;
-			if ((i + 1) % term->max.x == 0)
+			if (((int)i + 1) % term->max.x == 0)
 				start.y++;
 			i++;
 		}

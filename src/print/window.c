@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:28 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:03:18 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:55:17 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_select.h"
 #include "libft.h"
 
-void		print_top(const char *content, t_term *term)
+static void	print_top(const char *content, t_term *term)
 {
 	box_top(1, 0, term->wsize.ws_col - term->start_y, term->fd);
 	box_left_or_right(1, 1, term->fd);
@@ -34,7 +34,7 @@ void		print_top(const char *content, t_term *term)
 	print_cap("me");
 }
 
-void		print_bottom(t_term *term)
+static void	print_bottom(t_term *term)
 {
 	goto_cap("cm", 0, term->wsize.ws_row - 2);
 	ft_putstr_fd("\x1B[7m[SPACE]\x1B[0m   Select/Unselect  ", term->fd);
@@ -46,7 +46,7 @@ void		print_bottom(t_term *term)
 	ft_putstr_fd("\x1B[7m[o]\x1B[0m        Open directory", term->fd);
 }
 
-void		print_bottom_sm(t_term *term)
+static void	print_bottom_sm(t_term *term)
 {
 	goto_cap("cm", 0, term->wsize.ws_row - 2);
 	ft_putstr_fd("\x1B[7m[SPA]\x1B[0m  Select/Unselect ", term->fd);

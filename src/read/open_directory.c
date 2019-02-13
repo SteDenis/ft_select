@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:31:08 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 12:23:15 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:54:04 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void		back_dir(t_term *term)
 	if (ft_strlen(term->path) == 0)
 		recover_first_list(term);
 	else
-		try_open_it("/", term, true);
+		try_open_it(NULL, term, true);
 }
 
 void			open_directory(t_term *term)

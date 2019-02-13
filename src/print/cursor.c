@@ -6,14 +6,50 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 12:57:01 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:37:27 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 #include "libft.h"
 
-void	move_right(t_term *term, int down)
+static void	move_left(t_term *term, int up)
+{
+	if (term->pos.x - (term->max_l + 1) >= CENTER)
+		term->pos.x -= (term->max_l + 1);
+	else
+	{
+		term->pos.x = (CENTER) + ((term->max_l + 1) * (term->max.x - 1));
+		if (up == 1)
+			move_up(term);
+	}
+}
+
+static void	move_down(t_term *term, int right)
+{
+	if (term->pos.y + 1 <= term->max.y + term->start_y)
+		term->pos.y += 1;
+	else
+	{
+		term->pos.y = term->start_y;
+		if (right == 1)
+			move_right(term, term->fd);
+	}
+}
+
+void		move_up(t_term *term)
+{
+	if (term->pos.y - 1 >= term->start_y)
+		term->pos.y -= 1;
+	else
+	{
+		term->pos.y = term->max.y + term->start_y;
+		if (term->pos.x - (term->max_l + 1) >= CENTER)
+			move_left(term, term->fd);
+	}
+}
+
+void		move_right(t_term *term, int down)
 {
 	int		newpos;
 	int		maxpos;
@@ -30,43 +66,7 @@ void	move_right(t_term *term, int down)
 	}
 }
 
-void	move_left(t_term *term, int up)
-{
-	if (term->pos.x - (term->max_l + 1) >= CENTER)
-		term->pos.x -= (term->max_l + 1);
-	else
-	{
-		term->pos.x = (CENTER) + ((term->max_l + 1) * (term->max.x - 1));
-		if (up == 1)
-			move_up(term);
-	}
-}
-
-void	move_up(t_term *term)
-{
-	if (term->pos.y - 1 >= term->start_y)
-		term->pos.y -= 1;
-	else
-	{
-		term->pos.y = term->max.y + term->start_y;
-		if (term->pos.x - (term->max_l + 1) >= CENTER)
-			move_left(term, term->fd);
-	}
-}
-
-void	move_down(t_term *term, int right)
-{
-	if (term->pos.y + 1 <= term->max.y + term->start_y)
-		term->pos.y += 1;
-	else
-	{
-		term->pos.y = term->start_y;
-		if (right == 1)
-			move_right(term, term->fd);
-	}
-}
-
-void	move_cursor(t_term *term, char buff[])
+void		move_cursor(t_term *term, char buff[])
 {
 	if (LEFT(2))
 		move_left(term, 1);

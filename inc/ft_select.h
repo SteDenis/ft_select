@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:28:44 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:57:43 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void				print_printable_choices(t_term *term);
 ** print/cursor.c
 */
 void				move_cursor(t_term *term, char buff[]);
-void				move_down(t_term *term, int right);
 void				move_right(t_term *term, int down);
 void				move_up(t_term *term);
 

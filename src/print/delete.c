@@ -6,16 +6,15 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 16:22:30 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:28:16 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:45:38 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "ft_select.h"
 #include "libft.h"
-#include <unistd.h>
 
-void	free_elem(t_choice **node)
+static void	free_elem(t_choice **node)
 {
 	t_choice	*n;
 
@@ -24,7 +23,7 @@ void	free_elem(t_choice **node)
 	*node = NULL;
 }
 
-void	order(t_term **term, t_choice **prev, t_choice **next, t_choice **curr)
+static void	re(t_term **term, t_choice **prev, t_choice **next, t_choice **curr)
 {
 	(*term)->qty--;
 	*next = (*curr)->next;
@@ -45,7 +44,7 @@ void	order(t_term **term, t_choice **prev, t_choice **next, t_choice **curr)
 	}
 }
 
-int		del_elem(t_term **term)
+int			del_elem(t_term **term)
 {
 	t_choice	*curr;
 	t_choice	*prev;

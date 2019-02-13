@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:31 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:28:16 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:50:54 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		add_choice(t_choice **alst, t_choice *node)
 	}
 }
 
-int			check_type(struct stat stats)
+static int	check_type(struct stat stats)
 {
 	if (stats.st_mode & S_IEXEC && !(S_ISDIR(stats.st_mode)))
 		return (1);
@@ -55,7 +55,7 @@ t_choice	*arg_to_node(char **value, t_term *term)
 		node->name = *value;
 		node->length = ft_strlen(node->name);
 		if (term->max_l < (int)node->length + 6)
-			term->max_l = node->length + 10;
+			term->max_l = (int)node->length + 10;
 		if (stat(path, &stats) != -1)
 			node->type = check_type(stats);
 		else
@@ -84,6 +84,7 @@ int			fill_list_choices(char **ag, t_term *term)
 	t_choice	*head;
 
 	i = 0;
+	head = NULL;
 	ft_strcpy(term->path, "");
 	while (ag[i] != NULL)
 	{
