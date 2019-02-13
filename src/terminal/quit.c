@@ -44,6 +44,7 @@ void	end_select(t_term *term)
 	if (term->search != NULL)
 		ft_strdel(&term->search);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &term->org_term);
+	close(term->fd);
 	print_cap("ve");
 	print_cap("te");
 }
