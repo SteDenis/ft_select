@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 16:22:30 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 15:45:38 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:45:54 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			del_elem(t_term **term)
 	{
 		if (curr->pos.x == (*term)->pos.x && curr->pos.y == (*term)->pos.y)
 		{
-			order(term, &prev, &next, &curr);
+			re(term, &prev, &next, &curr);
 			break ;
 		}
 		else

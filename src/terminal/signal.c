@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:39:33 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 12:46:30 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 16:10:23 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	resize_handler(int signo)
 		if (ioctl(term->fd, TIOCGWINSZ, &term->wsize) != -1)
 		{
 			print_cap("cl");
-			if (term->wsize.ws_col <= 60 || term->wsize.ws_row <= 25)
+			if (term->wsize.ws_col <= 55 || term->wsize.ws_row <= 17)
 				ft_putendl_fd("Please resize your terminal.", term->fd);
 			else
 			{
