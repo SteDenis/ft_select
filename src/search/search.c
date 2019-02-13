@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:34:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/12 09:39:51 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:32:23 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	insert_char(t_term *term, char c)
 	tmp = term->search;
 	if ((term->search = ft_strjoin(term->search, buff)))
 		free(tmp);
+	else
+		term->search = tmp;
 }
 
 void	printable_char(t_term *term, char buff[])
@@ -92,7 +94,10 @@ void	search_items(t_term *term)
 	ft_putstr_fd("\x1B[0m", term->fd);
 	print_cap("ve");
 	if (term->search == NULL)
-		term->search = ft_strnew(0);
+	{
+		if (!(term->search = ft_strnew(0)))
+			return ;
+	}
 	else
 		ft_putstr_fd(term->search, term->fd);
 	while (read(0, buff, 2) > 0)

@@ -6,12 +6,11 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:14 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 12:56:41 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:28:16 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/ioctl.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
 #include "ft_select.h"
