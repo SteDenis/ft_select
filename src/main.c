@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:36 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/08 09:55:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:26:32 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void		return_select(t_term *term)
 		{
 			if (!first)
 				ft_putstr(" ");
+			if (ft_strlen(term->path) > 0)
+			{
+				ft_putstr(term->path);
+				ft_putchar('/');
+			}
 			ft_putstr(choices->name);
 			first = false;
 		}
@@ -46,5 +51,6 @@ int			main(int ac, char **ag)
 	end_select(&term);
 	if (ret == 1)
 		return_select(&term);
+	free_term(&term);
 	return (0);
 }

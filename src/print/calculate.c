@@ -19,4 +19,3 @@ int		calculate_nbr_pages(t_term *term)
 	nbperpage = (term->max.x * (term->wsize.ws_row - 8));
 	return (((term->qty + nbperpage - 1) / nbperpage) - 1);
 }
-

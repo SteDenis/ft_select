@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:39:33 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/12 11:16:50 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:46:30 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,7 @@
 
 static t_term	*g_term = NULL;
 
-void	set_no_printed(t_term *term)
-{
-	t_choice	*choices;
-
-	choices= term->choices;
-	while (choices)
-	{
-		choices->printed = false;
-		choices = choices->next;
-	}
-}
-
-void	resize_handler(int signo)
+static void	resize_handler(int signo)
 {
 	t_term *term;
 
@@ -44,15 +32,13 @@ void	resize_handler(int signo)
 			else
 			{
 				calculate_start_print(term);
-				set_no_printed(term);
 				print_list_choices(term);
 			}
-
 		}
 	}
 }
 
-void		stop_handler(int signo)
+static void	stop_handler(int signo)
 {
 	t_term *term;
 
@@ -67,7 +53,7 @@ void		stop_handler(int signo)
 	}
 }
 
-void		cont_handler(int signo)
+static void	cont_handler(int signo)
 {
 	t_term *term;
 
@@ -82,14 +68,27 @@ void		cont_handler(int signo)
 	}
 }
 
+static void	quit_handler(int signo)
+{
+	t_term *term;
+
+	term = g_term;
+	(void)signo;
+	end_select(term);
+	free_term(term);
+	exit(1);
+}
+
 void		enable_signal(t_term *term)
 {
 	g_term = term;
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, quit_handler);
 	signal(SIGWINCH, resize_handler);
-	signal(SIGKILL, SIG_DFL);
-	signal(SIGTERM, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGABRT, quit_handler);
+	signal(SIGSEGV, quit_handler);
+	signal(SIGKILL, quit_handler);
+	signal(SIGTERM, quit_handler);
+	signal(SIGQUIT, quit_handler);
 	signal(SIGTSTP, stop_handler);
 	signal(SIGCONT, cont_handler);
 }

@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/12 14:30:41 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:04:50 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_xy
 
 typedef struct		s_choice
 {
-	char 			*name;
+	char			*name;
 	size_t			length;
 	t_xy			pos;
 	int				type;
@@ -101,12 +101,13 @@ typedef struct		s_term
 	int				max_p;
 	int				qty;
 	int				qty_s;
+	int				start_y;
 	char			*search;
-	char 			path[1024];
+	char			path[1024];
 	int				fd;
 	t_choice		*choices;
+	t_choice		*first_list;
 }					t_term;
-
 
 /*
 ** terminal/worker.c
@@ -124,6 +125,7 @@ int					execute_tputs(int c);
 ** terminal/quit.c
 */
 void				end_select(t_term *term);
+void				free_term(t_term *term);
 
 /*
 ** read/loop.c
@@ -139,7 +141,7 @@ int					print_top_bottom_bar(t_term *term);
 ** read/choices.c
 */
 int					fill_list_choices(char **ag, t_term *term);
-void 				reset_choice(t_choice *choice);
+void				reset_choice(t_choice *choice);
 t_choice			*arg_to_node(char **value, t_term *term);
 void				add_choice(t_choice **alst, t_choice *node);
 
@@ -204,4 +206,5 @@ void				open_directory(t_term *term);
 int					denied_access(t_term *term);
 void				change_list(t_choice *head, t_term *term);
 void				add_node(t_choice **head, t_dir *dir, t_term *term);
+void				recover_first_list(t_term *term);
 #endif

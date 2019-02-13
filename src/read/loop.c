@@ -19,11 +19,11 @@ static int		interpreter(t_term *term, char buff[])
 	if (ESCAPE)
 		return (2);
 	if (DEL && del_elem(&term))
-			return (2);
+		return (2);
 	else if (ISARROW)
 		move_cursor(term, buff);
 	else if (SUPPR && del_elem(&term))
-			return (2);
+		return (2);
 	else if (CTRLR)
 		search_items(term);
 	else if (SPACE)
@@ -35,9 +35,9 @@ static int		interpreter(t_term *term, char buff[])
 	return (0);
 }
 
-int		loop_select(t_term *term)
+int				loop_select(t_term *term)
 {
-	char 	buff[7];
+	char	buff[7];
 	int		ret;
 
 	calculate_start_print(term);

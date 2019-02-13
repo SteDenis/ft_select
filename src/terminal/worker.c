@@ -15,7 +15,7 @@
 #include "libft.h"
 #include "ft_select.h"
 
-static char	*safe_tgetstr(const char *id, char **area)
+static char			*safe_tgetstr(const char *id, char **area)
 {
 	char	*rtn;
 	char	*tmp;
@@ -28,7 +28,7 @@ static char	*safe_tgetstr(const char *id, char **area)
 	return (rtn);
 }
 
-static int	safe_tputs(const char *str, int affcnt, int (*putc)(int))
+static int			safe_tputs(const char *str, int affcnt, int (*putc)(int))
 {
 	if (str != NULL)
 	{
@@ -46,12 +46,12 @@ static const char	*safe_tgoto(const char *str, int x, int y)
 	return (NULL);
 }
 
-void		goto_cap(const char *id, int x, int y)
+void				goto_cap(const char *id, int x, int y)
 {
 	safe_tputs(safe_tgoto(safe_tgetstr(id, NULL), x, y), 1, execute_tputs);
 }
 
-void		print_cap(const char *id)
+void				print_cap(const char *id)
 {
 	safe_tputs(safe_tgetstr(id, NULL), 1, execute_tputs);
 }

@@ -6,10 +6,9 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:31 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/12 14:26:44 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:56:41 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -55,16 +54,14 @@ t_choice	*arg_to_node(char **value, t_term *term)
 	{
 		node->name = *value;
 		node->length = ft_strlen(node->name);
-		if (term->max_l < (int)node->length)
+		if (term->max_l < (int)node->length + 6)
 			term->max_l = node->length + 10;
 		if (stat(path, &stats) != -1)
 			node->type = check_type(stats);
 		else
 			node->type = 0;
 		term->qty++;
-		node->pos.x = 0;
-		node->pos.y = 0;
-		node->printed = false;
+		reset_choice(node);
 		node->search = true;
 		node->selected = false;
 		node->freeable = false;
@@ -74,7 +71,7 @@ t_choice	*arg_to_node(char **value, t_term *term)
 	return (node);
 }
 
-void 		reset_choice(t_choice *choice)
+void		reset_choice(t_choice *choice)
 {
 	choice->printed = false;
 	choice->pos.x = 0;
@@ -83,11 +80,11 @@ void 		reset_choice(t_choice *choice)
 
 int			fill_list_choices(char **ag, t_term *term)
 {
-	int		i;
+	int			i;
 	t_choice	*head;
 
 	i = 0;
-	ft_strcpy(term->path, "./");
+	ft_strcpy(term->path, "");
 	while (ag[i] != NULL)
 	{
 		add_choice(&head, arg_to_node(&ag[i], term));
@@ -96,4 +93,3 @@ int			fill_list_choices(char **ag, t_term *term)
 	term->choices = head;
 	return (0);
 }
-

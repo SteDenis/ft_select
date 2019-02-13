@@ -83,8 +83,7 @@ void	suppr_char(t_term *term)
 	ft_putstr_fd("\x1B[0m", term->fd);
 }
 
-
-void		search_items(t_term *term)
+void	search_items(t_term *term)
 {
 	char		buff[2];
 
@@ -103,6 +102,6 @@ void		search_items(t_term *term)
 		else if (SUPPR)
 			suppr_char(term);
 		else
-			break;
+			break ;
 	}
 }

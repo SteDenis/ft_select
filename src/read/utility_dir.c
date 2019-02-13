@@ -6,13 +6,53 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 15:40:38 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/12 15:40:38 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:23:15 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include "ft_select.h"
 #include "libft.h"
+
+static void	recover_qty_maxl(t_term *term)
+{
+	t_choice	*curr;
+
+	curr = term->choices;
+	term->qty = 0;
+	term->max_l = 0;
+	while (curr)
+	{
+		if (term->max_l < (int)curr->length + 6)
+			term->max_l = curr->length + 10;
+		term->qty++;
+		curr->search = true;
+		curr->selected = false;
+		curr = curr->next;
+	}
+	ft_strcpy(term->path, "");
+}
+
+void		recover_first_list(t_term *term)
+{
+	t_choice	*tmp;
+
+	while (term->choices)
+	{
+		tmp = term->choices->next;
+		if (term->choices->freeable)
+			ft_strdel(&term->choices->name);
+		free(term->choices);
+		term->choices = tmp;
+	}
+	term->qty_s = 0;
+	term->choices = term->first_list;
+	term->first_list = NULL;
+	recover_qty_maxl(term);
+	print_cap("cl");
+	calculate_start_print(term);
+	print_list_choices(term);
+}
 
 int			denied_access(t_term *term)
 {
@@ -32,13 +72,18 @@ void		change_list(t_choice *head, t_term *term)
 {
 	t_choice	*tmp;
 
-	while (term->choices)
+	if (term->first_list == NULL)
+		term->first_list = term->choices;
+	else
 	{
-		tmp = term->choices->next;
-		if (term->choices->freeable)
-			ft_strdel(&term->choices->name);
-		free(term->choices);
-		term->choices = tmp;
+		while (term->choices)
+		{
+			tmp = term->choices->next;
+			if (term->choices->freeable)
+				ft_strdel(&term->choices->name);
+			free(term->choices);
+			term->choices = tmp;
+		}
 	}
 	term->qty_s = 0;
 	term->choices = head;

@@ -51,10 +51,12 @@ static int	init_struct(t_term *term)
 	term->max.x = 0;
 	term->max.y = 0;
 	term->max_l = 0;
+	term->start_y = 4;
 	term->qty = 0;
 	term->qty_s = 0;
 	term->choices = NULL;
 	term->search = NULL;
+	term->first_list = NULL;
 	enable_signal(term);
 	return (0);
 }

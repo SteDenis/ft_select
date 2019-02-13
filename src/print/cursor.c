@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:08:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/06 13:20:55 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:57:01 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ void	move_left(t_term *term, int up)
 		if (up == 1)
 			move_up(term);
 	}
-
 }
 
 void	move_up(t_term *term)
 {
-	if (term->pos.y - 1 >= 4)
+	if (term->pos.y - 1 >= term->start_y)
 		term->pos.y -= 1;
 	else
 	{
-		term->pos.y = term->max.y + 4;
+		term->pos.y = term->max.y + term->start_y;
 		if (term->pos.x - (term->max_l + 1) >= CENTER)
 			move_left(term, term->fd);
 	}
@@ -57,11 +56,11 @@ void	move_up(t_term *term)
 
 void	move_down(t_term *term, int right)
 {
-	if (term->pos.y + 1 <= term->max.y + 4)
+	if (term->pos.y + 1 <= term->max.y + term->start_y)
 		term->pos.y += 1;
 	else
 	{
-		term->pos.y = 4;
+		term->pos.y = term->start_y;
 		if (right == 1)
 			move_right(term, term->fd);
 	}
@@ -78,7 +77,7 @@ void	move_cursor(t_term *term, char buff[])
 	else if (DOWN(2))
 		move_down(term, 1);
 	else if (IS_OPT_ARR)
-			switch_page(term, buff);
+		switch_page(term, buff);
 	print_printable_choices(term);
+	print_top_bottom_bar(term);
 }
-

@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 12:15:14 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/12 11:16:50 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 12:56:41 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	calculate_start_print(t_term *term)
 	term->max.x = (term->wsize.ws_col - (CENTER * 2)) / term->max_l;
 	term->max.y = 0;
 	term->pos.x = CENTER;
-	term->pos.y = 4;
+	term->pos.y = term->start_y;
 }
 
 void	print_type(int type, t_term *term)
@@ -74,10 +74,10 @@ void	print_printable_choices(t_term *term)
 {
 	t_choice	*current;
 	t_xy		start;
-	size_t 		i;
+	size_t		i;
 
 	current = term->choices;
-	start.y = 4;
+	start.y = term->start_y;
 	term->max.y = 0;
 	i = 0;
 	start.x = CENTER;
@@ -97,17 +97,16 @@ void	print_printable_choices(t_term *term)
 		}
 		current = current->next;
 	}
-	print_top_bottom_bar(term);
 }
 
 void	print_list_choices(t_term *term)
 {
 	t_choice	*current;
 	t_xy		start;
-	size_t 		i;
+	size_t		i;
 
 	current = term->choices;
-	start.y = 4;
+	start.y = term->start_y;
 	term->max_p = calculate_nbr_pages(term);
 	term->page = 0;
 	i = 0;
@@ -115,7 +114,7 @@ void	print_list_choices(t_term *term)
 	{
 		if (current->search)
 		{
-			if (start.y >= term->wsize.ws_row - 4)
+			if (start.y >= term->wsize.ws_row - term->start_y)
 				current->printed = false;
 			else
 				current->printed = true;
@@ -126,4 +125,5 @@ void	print_list_choices(t_term *term)
 		current = current->next;
 	}
 	print_printable_choices(term);
+	print_top_bottom_bar(term);
 }

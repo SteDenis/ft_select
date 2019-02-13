@@ -22,6 +22,8 @@ void	select_item(t_term *term)
 	{
 		if (choices->pos.x == term->pos.x && choices->pos.y == term->pos.y)
 		{
+			if (ft_strequ("../", choices->name))
+				break ;
 			if (choices->selected)
 				term->qty_s--;
 			else
@@ -34,6 +36,7 @@ void	select_item(t_term *term)
 	}
 	print_cap("cl");
 	print_printable_choices(term);
+	print_top_bottom_bar(term);
 }
 
 void	change_printed(t_term *term, t_choice *current, int order)
@@ -41,12 +44,12 @@ void	change_printed(t_term *term, t_choice *current, int order)
 	t_xy		start;
 	size_t		i;
 
-	start.y = 4;
+	start.y = term->start_y;
 	term->max.y = 0;
 	i = 0;
 	while (current)
 	{
-		if (start.y >= term->wsize.ws_row - 4)
+		if (start.y >= term->wsize.ws_row - term->start_y)
 			current->printed = false;
 		else
 			current->printed = true;
@@ -60,6 +63,7 @@ void	change_printed(t_term *term, t_choice *current, int order)
 	}
 	print_cap("cl");
 	print_printable_choices(term);
+	print_top_bottom_bar(term);
 }
 
 void	prev_page(t_term *term)
