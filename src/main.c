@@ -43,7 +43,8 @@ int			main(int ac, char **ag)
 	t_term		term;
 	int			ret;
 
-	(void)ac;
+	if (ac < 2)
+		return (0);
 	if (init_term(&term))
 		return (1);
 	fill_list_choices(&ag[1], &term);
