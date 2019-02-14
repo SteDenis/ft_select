@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 11:38:11 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 20:22:25 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 20:39:02 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void		select_item(t_term *term)
 		}
 		choices = choices->next;
 	}
-	print_cap("cl");
 	if (check_window_size(term))
 	{
 		print_printable_choices(term);

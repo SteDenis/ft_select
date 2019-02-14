@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 10:34:02 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 20:31:20 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/14 12:29:43 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int		calculate_nbr_pages(t_term *term)
 
 bool	check_window_size(t_term *term)
 {
+	print_cap("cl");
 	if (ioctl(term->fd, TIOCGWINSZ, &term->wsize) == -1)
 		return (false);
-	if (term->wsize.ws_col <= 55 || term->wsize.ws_row <= 17)
+	if (term->wsize.ws_col < 58 || term->wsize.ws_row <= 17)
 	{
-		print_cap("cl");
 		ft_putendl_fd("Please resize your terminal.", term->fd);
 		return (false);
 	}

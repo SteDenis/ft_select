@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:34:00 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 14:34:06 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/14 12:34:24 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	print_search(t_term *term, size_t len)
 		reset_choice(curr);
 		curr = curr->next;
 	}
-	print_cap("cl");
 	print_cap("vi");
+	print_cap("cl");
 	calculate_start_print(term);
 	if (check_window_size(term))
 		print_list_choices(term);
@@ -110,4 +110,6 @@ void		search_items(t_term *term)
 		else
 			break ;
 	}
+	goto_cap("cm", 0, term->wsize.ws_row - 3);
+	print_cap("ce");
 }

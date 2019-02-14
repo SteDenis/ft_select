@@ -19,7 +19,7 @@ static void	move_left(t_term *term, int up)
 		term->pos.x -= (term->max_l + 1);
 	else
 	{
-		term->pos.x = (CENTER) + ((term->max_l + 1) * (term->max.x - 1));
+		term->pos.x = (CENTER) + ((term->max_l + 1) * (term->max.x));
 		if (up == 1)
 			move_up(term);
 	}

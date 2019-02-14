@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:01:27 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 20:22:54 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/14 12:23:27 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@
 # define EXE "\U0001F4BE"
 # define NOTF "\U0001F4CD"
 # define CURSOR "\U000027A1"
+
+/*
+** Define unicode for shortcut.
+*/
+# define ALTKEY "\U00002325"
+# define BCKKEY "\U0000232B"
+# define LFTKEY "\U00002190"
+# define RGTKEY "\U00002192"
+# define DELKEY "\U00002421"
+# define CTLKEY "\U00002303"
 
 /*
 ** Define colors.

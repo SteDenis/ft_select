@@ -6,7 +6,7 @@
 /*   By: stdenis <stdenis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 15:40:38 by stdenis           #+#    #+#             */
-/*   Updated: 2019/02/13 12:23:15 by stdenis          ###   ########.fr       */
+/*   Updated: 2019/02/13 20:22:25 by stdenis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void		recover_first_list(t_term *term)
 	term->choices = term->first_list;
 	term->first_list = NULL;
 	recover_qty_maxl(term);
-	print_cap("cl");
 	calculate_start_print(term);
 	if (check_window_size(term))
 		print_list_choices(term);
@@ -88,7 +87,6 @@ void		change_list(t_choice *head, t_term *term)
 	}
 	term->qty_s = 0;
 	term->choices = head;
-	print_cap("cl");
 	calculate_start_print(term);
 	if (check_window_size(term))
 		print_list_choices(term);
